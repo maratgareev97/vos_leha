@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <style>
+      .alert {
+        background: green;
+        padding: 1rem;
+        border-radius: 5px;
+        color: white;
+        margin: 1rem;
+        }
+      .b1 {
+        background: navy; /* Синий цвет фона */
+        color: white; /* Белые буквы */
+        font-size: 9pt; /* Размер шрифта в пунктах */
+        }
+    </style>
+    <title>Регистрация пользователей</title>
+</head>
+<body>
+<div align="center">
+    <h3>Регистрация пользователей</h3>
+    {% for cat, msg in get_flashed_messages(True) %}
+            <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+    <form action="/register" method="post" >
+        <table>
+            <tr>
+                <td><b>Имя:</b></td>
+                <td><input type="text" name="name" value="" class="form-control" requied /></td>
+            </tr>
+            <tr>
+                <td><b>Email:</b></td>
+                <td><input type="text" name="email" value="" requied /></td>
+            </tr>
+            <tr>
+                <td><b>Пароль:</b></td>
+                <td><input type="password" name="psw" value="" requied /></td>
+            </tr>
+            <tr>
+                <td><b>Повтор пароля:</b> </td>
+                <td><input type="password" name="psw2" value="" requied /></br></td>
+            </tr>
+            <tr >
+                <td colspan="2"><div align="center"><input type="submit" value="Регистрация" style="background: navy; color: white; font-size: 9pt;" class="b1"/></div></td>
+
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

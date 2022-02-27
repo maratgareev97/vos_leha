@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ввод файла</title>
+    <link rel="stylesheet" href="my/static/css/css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <style>
+.exit{
+font-size:20px;
+}
+.verh{
+margin-right:100px;
+margin-left:100px;
+}
+.method{
+display: flex;
+}
+.btn-text{
+margin-left:10px;
+}
+.fio{
+display: flex;
+}
+.primer{
+margin-left:295px;
+}
+.input_file{
+display:inline-block;height:38px;padding:0 30px;color:#555;text-align:center;font-size:11px;font-weight:600;line-height:38px;letter-spacing:.1rem;text-transform:uppercase;text-decoration:none;white-space:nowrap;background-color:transparent;border-radius:4px;border:1px solid #bbb;cursor:pointer;box-sizing:border-box
+}
+
+    </style>
+</head>
+<body>
+<div align="right" class="exit"><button class="btn_exit"><a href="/dropsession">Выйти</a></button></div>
+<div style="text-align: left;" class="verh">
+    <div style="text-align: center;" class="h3"><b><h3>Ключи авторизации ВОШ</h3></b></div>
+    <div class="select">
+        <select onchange="document.location=this.options[this.selectedIndex].value" class="u-full-width">
+            <option value = 'Вы не выбрали класс'}>Выберите класс!</option>
+            {% for name_table in spisok_table %}
+            <option value = {{name_table}}>{{name_table[6:]}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="p">
+        <p style="background:#e8f0fe"><font color="blue" size="5">Вы выбрали  <strong>{{name_table_get[6:]}}</strong> класс</font></p>
+    </div>
+
+    <div class="vvod">
+        <h4 class="h4">Выберете метод ввода</h4>
+        <div class="method">
+            <form action="/{{name_table_get}}/file" method="POST">
+                <input class="btn-file" type="submit" name="btn-file" value="Файл">
+            </form>
+            <form action="/{{name_table_get}}/text" method="POST" >
+                <input class="btn-text" type="submit" name="btn-text" value="Текст">
+            </form>
+        </div>
+        <form action="/update/file" method="post" enctype = "multipart/form-data">
+            <label for="Number One">Введите предмет</label>
+            <input type = "text" autocomplete="off" list = "predmet1" name="predmet" required="required" placeholder="Выберите" class="u-full-width">
+            <datalist id = "predmet1">
+                {% for nam_col in name_col %}
+                    <option value = "{{nam_col}}">
+                {% endfor %}
+            </datalist>
+
+
+
+            <h4>Загрузка файлов</h4>
+            <div class="fio">
+                <h5>Пожалуйста поместите имена в колонку под заголовком "ФИО"</h5>
+
+            </div>
+            <div>
+                <input class="input_file" id="input_file" type="file" accept="xlsx" name="file"/>
+
+            </div>
+            <input style="background: navy; color: white; font-size: 9pt;" type="submit" value="отправить" name="file">
+
+            <input type="text" name="table_name" value={{name_table_get}} hidden="True">
+        </form>
+        <form action="/download"><input type="submit" value="Скачать пример файла"></form>
+    </div>
+</div>
+</body>
+</html>

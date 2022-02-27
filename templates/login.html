@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <style>
+      .alert {
+        background: green;
+        padding: 1rem;
+        border-radius: 5px;
+        color: white;
+        margin: 1rem;
+        }
+      .b1 {
+        background: navy; /* Синий цвет фона */
+        color: white; /* Белые буквы */
+        font-size: 9pt; /* Размер шрифта в пунктах */
+        }
+        table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        text-align: center;
+        border-collapse: collapse;
+        border-spacing: 5px;
+        background: #E1E3E0;
+        border-radius: 20px;
+        }
+        th {
+        font-size: 22px;
+        font-weight: 300;
+        padding: 12px 10px;
+        border-bottom: 2px solid #F56433;
+        color: #F56433;
+        }
+        tbody tr:nth-child(2) {
+        border-bottom: 2px solid #F56433;
+        }
+        td {
+        padding: 10px;
+        color: #8D8173;
+        }
+    </style>
+    <title>Вход в систему</title>
+</head>
+<body>
+<div align="center">
+    <h5>Авторизуйтесь для получения ключей</h5>
+    <table>
+        <tr>
+            <td>
+                <div align="center">
+                    <form action="/login" method="post">
+                        <p><label>Email: </label> <input type="text" name="email" value="" required="required" />
+                        <p><label>Пароль: </label> <input type="password" name="psw" value="" required="required" />
+                        <!--<p><input type="checkbox" name="remainme" /> Запомнить меня-->
+                        <p><input type="submit" value="Войти" style="background: navy; color: white; font-size: 9pt;" class="b1"/>
+                        <hr align=left width="300px">
+                    </form>
+                </div>
+            </td>
+        </tr>
+    </table>
+    {% for cat, msg in get_flashed_messages(True) %}
+    <h4><div class="flash {{cat}}">{{msg}}</div></h4>
+    {% endfor %}
+</div>
+</body>
+</html>

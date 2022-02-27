@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ввод текста</title>
+    <link rel="stylesheet" href="my/static/css/css.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <style>
+.exit{
+font-size:20px;
+}
+.verh{
+margin-right:100px;
+margin-left:100px;
+}
+.method{
+display: flex;
+}
+.btn-text{
+margin-left:10px;
+}
+
+    </style>
+
+    <script language="javascript">
+        var items=1;
+        function AddItem() {
+          div=document.getElementById("items");
+          button=document.getElementById("add");
+          items++;
+          newitem="<strong ID=stron"+items+">" + items + ". </strong>";
+          newitem+="<input type=\"text\" name=\"item" + items;
+          newitem+="\" ID=\"del" + items;
+          newitem+="\" size=\"45\" class=\"u-full-width\"><br>";
+          newnode=document.createElement("span");
+          newnode.id="sp"+items;
+          newnode.innerHTML=newitem;
+          div.insertBefore(newnode,button);
+          //div.insertBefore(button);
+          console.log(items)
+          document.getElementById('result').innerHTML = 'Вы получите <b>' + items + '</b> ключей'; //через нее узнаем количество строк
+          document.getElementById('kol_password').value = items; //изменить значение value в поле количества паролей (оно невидимое)
+        }
+
+        function delItem() {
+          butt=document.getElementById("del"+items);
+          stron=document.getElementById("stron"+items);
+          span=document.getElementById("sp"+items);
+          butt.remove();
+          stron.remove();
+          span.remove();
+          items--;
+          document.getElementById('result').innerHTML = 'Вы получите <b>' + items + '</b> ключей'; //через нее узнаем количество строк
+          document.getElementById('kol_password').value = items; //изменить значение value в поле количества паролей (оно невидимое)
+        }
+
+    </script>
+
+</head>
+<body>
+<div align="right" class="exit"><button class="btn_exit"><a href="/dropsession">Выйти</a></button></div>
+<div style="text-align: left;" class="verh">
+    <div style="text-align: center;" class="h3"><b><h3>Ключи авторизации ВОШ</h3></b></div>
+    <div class="select">
+        <select onchange="document.location=this.options[this.selectedIndex].value" class="u-full-width">
+            <option value = 'Вы не выбрали класс'}>Выберите класс!</option>
+            {% for name_table in spisok_table %}
+            <option value = {{name_table}}>{{name_table[6:]}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="p">
+        <p style="background:#e8f0fe"><font color="blue" size="5">Вы выбрали  <strong>{{name_table_get[6:]}}</strong> класс</font></p>
+    </div>
+
+    <div class="vvod">
+        <h4 class="h4">Выберете метод ввода</h4>
+        <div class="method">
+            <form action="/{{name_table_get}}/file" method="POST">
+                <input class="btn-file" type="submit" name="btn-file" value="Файл">
+            </form>
+            <form action="/{{name_table_get}}/text" method="POST" >
+                <input class="btn-text" type="submit" name="btn-text" value="Текст">
+            </form>
+        </div>
+        <form action="/update/text" method="post">
+            <label for="Number One">Введите предмет</label>
+            <input type = "text" autocomplete="off" list = "predmet1" name="predmet" required="required" placeholder="Выберите" class="u-full-width">
+            <datalist id = "predmet1">
+                {% for nam_col in name_col %}
+                    <option value = "{{nam_col}}">
+                {% endfor %}
+            </datalist>
+
+            <input type="text" name="table_name" value={{name_table_get}} hidden="True">
+
+
+
+
+            <label for="Number Two">Введите ФИО участников:</label>
+          <!--<input type="number" name="t" value="0" min="0" max="40" step="1" class="u-full-width"> -->
+
+            <div ID="items">
+                <strong ID="stron">1. </strong>
+                <input type="text" name="item1" size="45" ID="del" class="u-full-width"><br>
+                <input type="button" value="Добавить поле" onClick="AddItem();" ID="add">
+                <input type="button" value="Удалить поле" onClick="delItem();" ID="delet">
+            </div>
+
+            <!-- этот блок необходим для подсчета количества полей ввода ФИО -->
+            <input type="text" value="1" id="kol_password" name="kol_pas" hidden="True">
+            <div id="result" name = "kol_strok"></div>
+            <!--  ------------------------------------------------------------  -->
+
+            <input name="update_zero" style="background: navy; color: white; font-size: 9pt;" class="b1" value="Выдать пароли" type="submit" onclick="alert('Файл будет скачан через 3 секунды!')">
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

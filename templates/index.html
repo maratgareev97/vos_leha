@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ввод</title>
+    <link rel="stylesheet" type="text/css" href="my/static/css/css_all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+    <style>
+.exit{
+font-size:20px;
+}
+.verh{
+margin-right:100px;
+margin-left:100px;
+}
+.method{
+display: flex;
+}
+.btn-text{
+margin-left:10px;
+}
+
+    </style>
+
+</head>
+<body>
+<div align="right" class="exit"><button class="btn_exit"><a href="/dropsession">Выйти</a></button></div>
+<div style="text-align: left;" class="verh">
+    <div style="text-align: center;" class="h3"><b><h3>Ключи авторизации ВОШ</h3></b></div>
+    <div class="select">
+        <select onchange="document.location=this.options[this.selectedIndex].value" class="u-full-width">
+            <option value = 'Вы не выбрали класс'}>Выберите класс!</option>
+            {% for name_table in spisok_table %}
+            <option value = {{name_table}}>{{name_table[6:]}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="p">
+        <p style="background:#e8f0fe"><font color="blue" size="5">Вы выбрали  <strong>{{name_table_get[6:]}}</strong> класс</font></p>
+    </div>
+
+    <div class="vvod">
+        <h4 class="h4">Выберете метод ввода</h4>
+        <div class="method">
+            <form action="/{{name_table_get}}/file" method="POST">
+                <input class="btn-file" type="submit" name="btn-file" value="Файл">
+            </form>
+            <form action="/{{name_table_get}}/text" method="POST" >
+                <input class="btn-text" type="submit" name="btn-text" value="Текст">
+            </form>
+        </div>
+        <form action="/update" method="post">
+            <label for="Number One">Введите предмет</label>
+            <input type = "text" autocomplete="off" list = "predmet1" name="predmet" required="required" placeholder="Выберите" class="u-full-width">
+            <datalist id = "predmet1">
+                {% for nam_col in name_col %}
+                    <option value = "{{nam_col}}">
+                {% endfor %}
+            </datalist>
+
+
+            <input type="text" name="table_name" value={{name_table_get}} hidden="True">
+        </form>
+    </div>
+</div>
+</body>
+</html>
